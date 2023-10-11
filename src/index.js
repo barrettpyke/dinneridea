@@ -1,14 +1,18 @@
 const express = require('express');
+const expressOasGenerator = require('express-oas-generator');
+const restaurants = require('./routes/restaurants');
+
 const app = express();
-const port = 3000;
+
+expressOasGenerator.handleResponses(app, {});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-const restaurants = require('./routes/restaurants');
-
 app.use('/api', restaurants);
 
+expressOasGenerator.handleRequests();
+
+const port = 3000;
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
